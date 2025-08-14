@@ -1,5 +1,9 @@
 # face-derma-condmaps
 
+[![python](https://img.shields.io/badge/python-3.10%7C3.11-blue)]()
+[![pytorch](https://img.shields.io/badge/pytorch-nightly%20CUDA12x-orange)]()
+[![license](https://img.shields.io/badge/license-MIT-green)]()
+
 **얼굴 데이터셋**에서 얼굴을 **검출·정렬 → 파싱(BiSeNet)** 한 뒤, 피부 영역에 대해  
 **주름(Wrinkle) / 모공(Pore) / 홍조(Redness)** 의 **3채널 조건지도(heatmaps + .npy)**와  
 품질지표(QC), 미리보기, 학습용 매니페스트까지 한 번에 생성하는 파이프라인.  
@@ -37,3 +41,26 @@ pip install --pre torch torchvision torchaudio --index-url https://download.pyto
 
 # 필수 패키지
 pip install opencv-python insightface onnxruntime-gpu pyyaml tqdm matplotlib pandas
+```
+
+---
+
+## 클론 가이드
+
+```bash
+git clone https://github.com/Keddmon/face-derma-condmaps.git
+cd face-derma-condmaps
+git submodule update --init --recursive
+```
+
+---
+
+## 라이선스/출처
+
+- **레포**: MIT License
+- **사용 모델/코드**:
+    - InsightFace (MIT)
+    - BiSeNet (CelebA-HQ 파생, 가중치 `79999_iter.pth`는 사용자 소지 파일)
+- **데이터**: FFHQ(NVLabs) - 데이터 라이선스/정책 준수
+
+---

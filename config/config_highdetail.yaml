@@ -1,0 +1,54 @@
+paths:
+  image_root: "D:/filter_asian/filter_asian(1024x1024)"     # 원본(정렬 전) 이미지 루트
+  output_root: "D:/face_parsing/outputs_highdetail"         # 결과 저장 루트(기본과 분리)
+  bisenet_ckpt: "D:/projects/face-derma-condmaps/models/79999_iter.pth"
+
+runtime:
+  use_cuda: true
+  num_workers: 8
+  save_previews: true
+  preview_max: 200
+  save_maps: true
+  save_maps_png: true
+  save_maps_npy: true
+
+align:
+  out_size: 1024     # ★ 기본 512 → 1024로 상향: 미세 텍스처 보존(연산/VRAM↑)
+
+parsing:
+  backend: "zll_bisenet"
+  input_size: 512    # BiSeNet 입력은 512 유지(체크포인트 호환). 내부에서 리사이즈됨.
+  labels:
+    skin: 1
+    upper_lip: 12
+    lower_lip: 13
+    hair: 17
+  postprocess:
+    smooth_open: 0             # ★ 스무딩 최소화: 경계 보존(노이즈가 보이면 1로)
+    smooth_close: 0            # ★ 구멍 메우기 최소화(필요시 1)
+    erode_skin_px: 1           # 헤어라인 침범 완화(필요시 0~2 범위 조정)
+    exclude_lips: true         # 홍조/모공에 입술 영향 제거
+    exclude_hair_boundary_px: 3  # ★ 헤어 경계 3px 확장 후 피부에서 제외(경계 깔끔)
+
+metrics:
+  redness:
+    cheek_mask_erode: 2          # ★ 볼 중심 강조는 약간만(3→2): 디테일 보존
+    a_star_clip_percentiles: [1, 99]  # ★ 클리핑 완화(5,95→1,99): 약한 붉은기도 표현
+    map_smooth_sigma: 0.5        # ★ 히트맵 블러 약하게(1.0→0.5): 세부 패턴 보존
+  wrinkle:
+    laplacian_ksize: 3
+    gabor:
+      thetas: [0, 45, 90, 135]
+      lambdas: [3, 6]            # ★ 더 짧은 파장 위주(기본 4,8): 잔주름 민감도↑
+      sigmas: [1.5, 2.5]         # ★ 커널 폭 약화: 세부 구조 강조
+    map_percentiles: [1, 99]     # ★ 정규화 범위 확장: 미세 반응도 살림
+  pore:
+    dog:
+      sigma_small: 0.7           # ★ 더 고주파(기본 1.0→0.7)
+      sigma_large: 1.8           # ★ 대역을 좁혀 작은 모공 강조(기본 2.5→1.8)
+    map_percentiles: [1, 99]     # ★ 정규화 범위 확장
+
+qc:
+  blur_varlap_thresh: 50.0       # ★ 고해상도라 기준을 조금 상향(기본 30→50)
+  exposure_low_pct: 1.0
+  exposure_high_pct: 99.0

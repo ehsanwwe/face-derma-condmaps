@@ -1,0 +1,10 @@
+opencv-python
+insightface
+onnxruntime-gpu
+numpy
+pyyaml
+tqdm
+matplotlib
+pandas
+pillow
+scikit-image

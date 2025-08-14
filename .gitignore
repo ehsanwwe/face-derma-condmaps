@@ -1,0 +1,58 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.so
+.build/
+dist/
+build/
+.eggs/
+*.egg-info/
+
+# --- Envs ---
+.venv/
+venv/
+env/
+.env
+*.env
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+
+# --- Editors / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Project outputs & caches ---
+outputs/
+logs/
+reports/
+tmp/
+.cache/
+**/.cache/
+
+# --- Data / large artifacts (원본 데이터, 자동 생성물 무시) ---
+data/
+datasets/
+downloads/
+
+# --- Models / weights ---
+models/*.pth
+models/*.onnx
+models/*.pt
+*.ckpt
+*.onnx
+*.npz
+
+# --- InsightFace local cache (혹시 레포 아래에 생기는 경우) ---
+.insightface/
+**/.insightface/
+
+# --- Optional: images kept small via examples/ ---
+!data/README.md
+!outputs/README.md
+!models/README.md

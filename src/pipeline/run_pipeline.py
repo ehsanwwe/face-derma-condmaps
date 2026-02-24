@@ -314,7 +314,7 @@ def main(cfg):
 
                 # 조건지도 3채널 NPY
                 if save_maps and save_npy:
-                    cond     = np.stack([red_map, wrk_map, por_map], axis=0).astype(np.float32)  # [3,H,W]
+                    cond     = np.stack([red_map, wrk_map, por_map, skin_mask.astype(np.float32)], axis=0)
                     out_base = (out_root / "maps/cond" / rel).with_suffix('')
                     out_base.parent.mkdir(parents=True, exist_ok=True)
                     np.save(str(out_base) + ".npy", cond)

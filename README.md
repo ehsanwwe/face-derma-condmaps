@@ -48,9 +48,21 @@ pip install opencv-python insightface onnxruntime-gpu pyyaml tqdm matplotlib pan
 ## 클론 가이드
 
 ```bash
-git clone https://github.com/Keddmon/face-derma-condmaps.git
+git clone https://github.com/imxuno/face-derma-condmaps.git
 cd face-derma-condmaps
 git submodule update --init --recursive
+```
+
+```plain
+https://github.com/zllrunning/face-parsing.PyTorch
+해당 code 압축 해제 후, 'face-derma-condmaps/third_party'에 넣기
+face-derma-condmaps
+└─ third_party
+   └─ face-parsing.PyTorch
+
+https://github.com/zllrunning/face-makeup.PyTorch/blob/master/cp/79999_iter.pth
+에서 모델 다운로드 후,
+'face-derma-condmaps/models'에 넣기
 ```
 
 ---
@@ -143,5 +155,4 @@ face-derma-condmaps
       ├─ test.py
       ├─ train.py
       └─ transform.py
-
 ```

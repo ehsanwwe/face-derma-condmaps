@@ -1,12 +1,12 @@
 paths:
-  image_root: "D:/filter_asian/filter_asian(1024x1024)"
-  output_root: "D:/face_parsing/outputs"
+  image_root: "D:/projects/HighRes-Face-DeAging-SPADE/data/raw"
+  output_root: "D:/cGAN_datasets/aihub"
   bisenet_ckpt: "D:/projects/face-derma-condmaps/models/79999_iter.pth"
 
 runtime:
   use_cuda: true
   # 파일 로딩/검출 단계의 스레드 수(디스크/CPU 병렬 I/O용)
-  num_workers: 8
+  num_workers: 0
   # 정렬 얼굴 + 스코어 텍스트가 들어간 미리보기 PNG 저장 여부
   save_previews: true
   # 미리보기 저장 상한(너무 많으면 용량 커지니 제한)
@@ -49,7 +49,7 @@ parsing:
     exclude_lips: true                # 입술을 피부 마스크에서 제외(홍조 계산에 유리)
     exclude_hair_boundary_px: 3       # 헤어 마스크 dilate 후 그 경계를 피부에서 제거할 픽셀 수
     exclude_eyebrows: true            # 눈썹 제외 (홍조/주름 맵 과상승 방지)
-    boundary_fallof_px: 2             # 경계로 갈수록 감쇠(halo 억제)
+    boundary_falloff_px: 2             # 경계로 갈수록 감쇠(halo 억제)
 
 metrics:
   redness:                            # 홍조(얼굴 L*a*b*의 a* 채널 기반)
@@ -61,7 +61,7 @@ metrics:
     l_guided:
       use: true                       # true면 적용
       method: guided                  # guided | bilateral | gaussian
-      redius: 15                      # 필터 반경(픽셀)
+      radius: 15                      # 필터 반경(픽셀)
       eps: 0.001                      # guidedFilter 정규화 항
       alpha: 1.2                      # 가중 강도(1.0 ~ 1.5 권장)
       clip_w: [0.6, 1.4]              # 가중치 클램프 범위

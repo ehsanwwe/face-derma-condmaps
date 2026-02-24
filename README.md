@@ -37,3 +37,83 @@ pip install --pre torch torchvision torchaudio --index-url https://download.pyto
 
 # 필수 패키지
 pip install opencv-python insightface onnxruntime-gpu pyyaml tqdm matplotlib pandas
+```
+face-derma-condmaps
+├─ config
+│  ├─ config.yaml
+│  └─ config_highdetail.yaml
+├─ detectors
+│  └─ insightface_detector.py
+├─ models
+├─ README.md
+├─ requirements.txt
+├─ scripts
+│  ├─ dryrun_dataloader.py
+│  ├─ make_splits.py
+│  ├─ mosaic_from_list.py
+│  ├─ run_pipeline.bat
+│  ├─ stats_report.py
+│  └─ test_bisenet_skin.py
+├─ src
+│  ├─ metrics
+│  │  ├─ pore.py
+│  │  ├─ redness.py
+│  │  ├─ wrinkle.py
+│  │  └─ __init__.py
+│  ├─ parsing
+│  │  ├─ bisenet_parser.py
+│  │  └─ __init__.py
+│  ├─ pipeline
+│  │  ├─ run_pipeline.py
+│  │  └─ __init__.py
+│  ├─ preprocess_pipeline.py
+│  ├─ qc
+│  │  ├─ qc_filter.py
+│  │  ├─ quality.py
+│  │  └─ __init__.py
+│  ├─ utils
+│  │  ├─ io.py
+│  │  ├─ viz.py
+│  │  └─ __init__.py
+│  └─ __init__.py
+└─ third_party
+   └─ face-parsing.PyTorch
+      ├─ evaluate.py
+      ├─ LICENSE
+      ├─ logger.py
+      ├─ loss.py
+      ├─ makeup
+      │  ├─ 116_1.png
+      │  ├─ 116_3.png
+      │  ├─ 116_lip_ori.png
+      │  └─ 116_ori.png
+      ├─ makeup.py
+      ├─ model.py
+      ├─ modules
+      │  ├─ bn.py
+      │  ├─ deeplab.py
+      │  ├─ dense.py
+      │  ├─ functions.py
+      │  ├─ misc.py
+      │  ├─ residual.py
+      │  ├─ src
+      │  │  ├─ checks.h
+      │  │  ├─ inplace_abn.cpp
+      │  │  ├─ inplace_abn.h
+      │  │  ├─ inplace_abn_cpu.cpp
+      │  │  ├─ inplace_abn_cuda.cu
+      │  │  ├─ inplace_abn_cuda_half.cu
+      │  │  └─ utils
+      │  │     ├─ checks.h
+      │  │     ├─ common.h
+      │  │     └─ cuda.cuh
+      │  └─ __init__.py
+      ├─ optimizer.py
+      ├─ prepropess_data.py
+      ├─ README.md
+      ├─ resnet.py
+      ├─ test.py
+      ├─ train.py
+      └─ transform.py
+
+```

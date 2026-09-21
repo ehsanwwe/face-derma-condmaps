@@ -45,12 +45,12 @@ def make_cond_tile(bgr, red_map, wrk_map, por_map, save_path, alpha=0.45, font_s
         cv2.putText(out, text, (10, 28), cv2.FONT_HERSHEY_SIMPLEX, font_scale, (0,0,0), 1, cv2.LINE_AA)
         return out
 
-    t1 = put_label(bgr,     "Original")
-    t2 = put_label(comp_bgr,"Composite  (R=Redness, G=Wrinkle, B=Pore)")
-    t3 = put_label(red_ov,  "Redness Overlay")
-    t4 = put_label(wrk_ov,  "Wrinkle Overlay")
-    t5 = put_label(por_ov,  "Pore Overlay")
-    t6 = put_label(red_h,   "Redness Heat")
+    t1 = put_label(bgr,     "Mediuty.com")
+    t2 = put_label(comp_bgr,"")
+    t3 = put_label(red_ov,  "")
+    t4 = put_label(wrk_ov,  "")
+    t5 = put_label(por_ov,  "")
+    t6 = put_label(red_h,   "")
 
     row1 = np.hstack([t1, t2, t3])
     row2 = np.hstack([t4, t5, t6])

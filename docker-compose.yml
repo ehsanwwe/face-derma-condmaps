@@ -1,0 +1,18 @@
+services:
+  api:
+    build: .
+    image: face-derma-condmaps:latest
+    container_name: face-derma-api
+    restart: unless-stopped
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      # BiSeNet weights (79999_iter.pth) live outside the image
+      - ./models:/app/models:ro
+    healthcheck:
+      # any HTTP response (even 404) means uvicorn is up
+      test: ["CMD", "python", "-c", "import urllib.request as u, urllib.error as e\ntry: u.urlopen('http://localhost:8000/docs', timeout=5)\nexcept e.HTTPError: pass"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s

@@ -56,3 +56,10 @@ models/*.pt
 !data/README.md
 !outputs/README.md
 !models/README.md
+
+# --- stray nested copy of the project (not part of this repo) ---
+/face-derma-condmaps/
+
+# --- API runtime output ---
+static/*
+!static/.gitkeep

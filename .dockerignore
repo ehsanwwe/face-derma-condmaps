@@ -1,0 +1,26 @@
+**/.git
+**/.gitignore
+**/__pycache__
+**/*.pyc
+.venv
+.idea
+.vscode
+
+# stray nested copy of the project + data/outputs
+face-derma-condmaps
+inputs
+outputs
+output
+data
+datasets
+
+# weights are mounted at runtime, never baked in
+models
+*.pth
+*.onnx
+
+# not needed by the API image
+scripts
+README.md
+docker-compose.yml
+Dockerfile

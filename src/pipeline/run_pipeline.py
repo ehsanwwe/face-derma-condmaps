@@ -69,9 +69,7 @@ def main(cfg):
     fail_w = csv.writer(fail_f); fail_w.writerow(["rel_path","reason"])
 
     # 라벨 CSV 헤더에 skin_cov 추가
-    # with open(labels_csv, 'w', newline='', encoding='utf-8') as f:
-    #     csv_w = csv.writer(f)
-    #     csv_w.writerow(["rel_path","wrinkle","pore","redness","qc_blur","exp_lo","exp_hi","skin_cov"])
+    w.writerow(["rel_path","wrinkle","pore","redness","qc_blur","exp_lo","exp_hi","skin_cov"])
 
     # parser (BiSeNet)
     backend = parsing.get('backend', 'zll_bisenet').lower()
@@ -122,8 +120,8 @@ def main(cfg):
 
 
     with open(labels_csv, 'w', newline='', encoding='utf-8') as f:
-        csv_w = csv.writer(f)
-        csv_w.writerow(["rel_path","wrinkle","pore","redness","qc_blur","exp_lo","exp_hi","skin_cov"])
+        w = csv.writer(f)
+        w.writerow(["rel_path","wrinkle","pore","redness","qc_blur","exp_lo","exp_hi"])
 
         for p in tqdm(image_paths, desc="Processing"):
             try:
@@ -254,8 +252,8 @@ def main(cfg):
             falloff_px = int(pp.get('boundary_falloff_px', 0))
             if falloff_px > 0 and (skin_mask > 0).any():
                 dist     = cv2.distanceTransform((skin_mask>0).astype(np.uint8), cv2.DIST_L2, 3)
-                w_fall   = np.clip(dist / float(max(1, falloff_px)), 0.0, 1.0).astype(np.float32)
-                red_map *= w_fall; wrk_map *= w_fall; por_map *= w_fall
+                w        = np.clip(dist / float(max(1, falloff_px)), 0.0, 1.0).astype(np.float32)
+                red_map *= w; wrk_map *= w; por_map *= w
 
 
 
@@ -278,7 +276,7 @@ def main(cfg):
 
             # write
             # 맵 생성 직후 이미 이 값들을 갖고 있음: red_s, wrk_s2, por_s2
-            csv_w.writerow([rel,
+            w.writerow([rel,
                         f"{wrk_s2:.4f}", f"{por_s2:.4f}", f"{red_s:.4f}",
                         f"{blur:.2f}", f"{lo:.1f}", f"{hi:.1f}",
                         f"{skin_cov:.4f}"])
@@ -314,7 +312,7 @@ def main(cfg):
 
                 # 조건지도 3채널 NPY
                 if save_maps and save_npy:
-                    cond     = np.stack([red_map, wrk_map, por_map, skin_mask.astype(np.float32)], axis=0)
+                    cond     = np.stack([red_map, wrk_map, por_map], axis=0).astype(np.float32)  # [3,H,W]
                     out_base = (out_root / "maps/cond" / rel).with_suffix('')
                     out_base.parent.mkdir(parents=True, exist_ok=True)
                     np.save(str(out_base) + ".npy", cond)

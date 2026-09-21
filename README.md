@@ -45,6 +45,24 @@ pip install opencv-python insightface onnxruntime-gpu pyyaml tqdm matplotlib pan
 
 ---
 
+## Docker (API server, Linux / CPU)
+
+`server.py` is a FastAPI service (`POST /process`, image in -> 3-channel condition tile + scores out).
+
+```bash
+git clone --recurse-submodules <your-repo-url>
+cd face-derma-condmaps
+# put the BiSeNet weights in models/79999_iter.pth  (see models/README.md)
+docker compose up -d --build
+```
+
+- Host port is **6464** by default (container listens on 8000). Change it with `API_PORT=7000 docker compose up -d`.
+- Swagger UI: http://localhost:6464/docs
+- Test: `curl -F "file=@face.jpg" http://localhost:6464/process`
+- The image is CPU-only; InsightFace `buffalo_l` and the resnet18 backbone weights are baked in at build time. `models/` is mounted read-only.
+
+---
+
 ## 클론 가이드
 
 ```bash

@@ -5,7 +5,7 @@ services:
     container_name: face-derma-api
     restart: unless-stopped
     ports:
-      - "${API_PORT:-8000}:8000"
+      - "${API_PORT:-6464}:8000"
     volumes:
       # BiSeNet weights (79999_iter.pth) live outside the image
       - ./models:/app/models:ro
